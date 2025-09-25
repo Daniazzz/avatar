@@ -1,0 +1,756 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="artificial intelligence, computer vision, nlp, machine learning, deep learning, natural language processing, ai, nvdia, asrix, ai malaysia" />
+        <meta name="publisher" content="https://asrix.com">
+        <meta name="copyright" content="Copyright (c) Asrix Prime" />
+        <meta name="author" content="Md Khussairiee" />
+        <meta name="contact" content="hello@asrix.com" />
+    <title>Chatbot</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+	<!-- ✅ ADD THIS in <head> -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.7.0/css/flag-icons.min.css" />
+	<style>
+        .iframe-overlay {
+            position: fixed;
+            top: 0;
+            right: 0; /* Position on the right side */
+            width: 330px; /* Set the width to 300px */
+            height: 330px; /* Set the height to 300px */
+            background: transparent; /* Set the background to transparent */
+            display: block; /* Initially hidden */
+            z-index: 3000; /* Set the z-index to 3000 for the overlay */
+            border: none;
+        }
+
+		.video-background {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		z-index: 1;
+		opacity: 0.9; /* Set opacity to 0.5 */
+	}
+        @media (max-width: 767px) and (orientation: landscape), /* Mobile landscape */
+       (max-width: 768px) { /* Include the original condition */
+            .iframe-overlay {
+                display: none;
+            }
+        }
+
+        #open-overlay-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 3000; /* Set the z-index to 3000 for the button */
+            background: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #close-overlay-button {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 1001; /* Above the overlay */
+        background: #fff;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        }
+
+		/* unvisited link */
+		a:link {
+		  color: white;
+		}
+		/* visited link */
+		a:visited {
+		  color: white;
+		}	
+		/* mouse over link */
+		a:hover {
+		  color: white;
+		}	
+		/* selected link */
+		a:active {
+		  color: white;
+		}	
+		.container-fluid {
+			background-color: #fff;
+			max-width: 100%;
+		}
+		.chat-box {
+			z-index: 2;
+			opacity: 0.9;
+			border: 0px solid #dee2e6;
+			border-radius: 0.25rem;
+			max-height: 90vh;
+			min-height: 90vh;
+			overflow-y: auto;
+			margin-top: 10px;
+			width: 75%;
+		}
+		#chat-box {
+			display: flex;
+			flex-direction: column-reverse;
+			overflow-y: auto;
+			max-height: 90vh;
+		}
+
+		@media (max-width: 767px) { /* Adjust the breakpoint as needed */
+			.chat-box {
+				width: 91%;
+				max-height: 20vh; /* Adjust the height as needed */
+				min-height: 20vh;
+				position: fixed;
+				bottom: 40px; /* Height of the chat form + some padding */
+				margin-top: 0; /* Remove the top margin */
+				left: 50%;
+				transform: translateX(-50%);
+			}
+		}
+
+		.chat-message {
+			padding: 10px;
+			margin-bottom: 10px;
+			border-radius: 5px;
+		}
+
+		.message-text {
+			word-wrap: break-word;
+		}
+		#chat-form {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background-color: #e3ecf1;
+		}
+		#user-input {
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
+		.user-message {
+			padding: 10px;
+			margin-bottom: 10px;
+			border-radius: 5px;
+			background-color: red;
+			color: #fff;
+			align-self: flex-end;
+		}
+		.chatbot-message {
+			padding: 10px;
+			margin-bottom: 10px;
+			border-radius: 5px;
+			background-color: #f0f0f0;
+			color: #333;
+		}
+		.message-text {
+			word-wrap: break-word;
+		}	
+		.imgAvatar {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+		width: 100%;
+		height: 100%;
+		}
+		/* Apply this CSS for mobile screens */
+		@media (max-width: 768px) {
+		.imgAvatar {
+			position: static; /* Remove fixed positioning for smaller screens */
+		}
+		}
+		/* Apply this CSS for mobile landscape mode */
+		@media (max-width: 768px) and (orientation: landscape) {
+		.imgAvatar {
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
+			width: 100%;
+			height: 100%;
+		}
+		}
+		.full-height {
+		  height: 100vh;
+		}
+		.iframeApps {
+		display: block;       /* iframes are inline by default */
+		margin: 0;
+		background: #000;
+		border: none;         /* Reset default border */
+		height: 100vh;        /* Viewport-relative units */
+		width: 75vw;
+		}
+		.iframeAva {
+		display: block;       /* iframes are inline by default */
+		background: #ffffff;
+		border: none;         /* Reset default border */
+		height: 100vh;        /* Viewport-relative units */
+		width: 100%;
+		}	
+		.video-container {
+		width: 100%;
+		height: auto;
+		display: block;
+		}
+		.dropdown-menu::before {
+			content: '';
+			display: inline-block;
+			border-left: 7px solid transparent;
+			border-right: 7px solid transparent;
+			border-bottom: 7px solid #ccc;
+				border-bottom-color: #fff;
+			border-bottom-color: #fff;
+			position: absolute;
+			top: -7px;
+			left: 9px;
+		}
+		.sticky-div {
+		  position: fixed;
+		  top: 65px;
+		  right: 0;
+		  height: 100%;
+		  width: 25%; /* Adjust the width to your desired value */
+		  z-index: 1000;
+		}
+		.sticky-navbar {
+		  position: sticky; /* or you can use 'sticky' if you prefer */
+		  top: 0;
+		  width: 100%;
+		  z-index: 1000; /* Keeps the navbar on top of other elements */
+		}
+
+		#logo{ 
+			position: fixed; 
+			margin-top: 10px; 
+			bottom: 100px;
+			right: 30px;
+			opacity: 0.80;
+			z-index: 3;
+		}
+
+		/* Media query for mobile devices */
+		@media (max-width: 768px) {
+			#logo {
+				top: 10px; /* Adjust as needed */
+				bottom: auto; /* Reset the bottom property */
+				right: 10px; /* Adjust as needed */
+				left: 10px; /* Optional, if you want to center horizontally */
+				margin: 0; /* Reset margin */
+				display: none;
+			}
+		}
+		</style>
+
+<script>
+  const overlayIframe = document.getElementById('overlay-iframe');
+  const closeOverlayButton = document.getElementById('close-overlay-button');
+
+  // Function to show the overlay with the external URL
+  function showOverlay() {
+    overlayIframe.style.display = 'block';
+  }
+
+  // Function to hide the overlay
+  function hideOverlay() {
+    overlayIframe.style.display = 'none';
+  }
+
+  // Add an event listener to the button to show the overlay
+  document.getElementById('open-overlay-button').addEventListener('click', showOverlay);
+
+  // Add an event listener to the close button to hide the overlay
+  closeOverlayButton.addEventListener('click', hideOverlay);
+</script>
+
+<script src="https://studio.orient-telecoms.com/publishing/avatar/js/fullscreenV2.js"></script>
+
+</head>
+<script>
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+  });
+</script>
+<body>
+
+    <div class="modal" id="nameModal" role="dialog"
+        style="display:block; background: rgba(0,0,0,0.8); z-index:9999; position:fixed; top:0; left:0; right:0; bottom:0;"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content p-4">
+                <h5 class="modal-title" id="modalGreeting">Welcome! What's your name?</h5>
+                <input class="form-control my-3" id="userNameInput" placeholder="Enter your name" required="" type="text" />
+                <button class="btn btn-primary" id="submitNameBtn">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ ADD THIS in <body>, near the top (before container-fluid) -->
+    <select id="language-selector" class="form-select"
+        style="position:fixed;top:50px;left:10px;width:200px;z-index:9999;">
+    <option value="auto">🌐 Auto Detect</option>
+    <option value="en-US">🇺🇸 English (US)</option>
+    <option value="ms-MY">🇲🇾 Malay</option>
+    <option value="zh-CN">🇨🇳 Chinese (Simplified)</option>
+    <option value="hi-IN">🇮🇳 Hindi</option>
+    <option value="th-TH">🇹🇭 Thai</option>
+    <option value="ja-JP">🇯🇵 Japanese</option>
+    <option value="ko-KR">🇰🇷 Korean</option>
+    <option value="fr-FR">🇫🇷 French</option>
+    <option value="de-DE">🇩🇪 German</option>
+    <option value="ru-RU">🇷🇺 Russian</option>
+    <option value="es-ES">🇪🇸 Spanish</option>
+    <option value="it-IT">🇮🇹 Italian</option>
+    <option value="tr-TR">🇹🇷 Turkish</option>
+    <option value="ar-SA">🇸🇦 Arabic</option>
+    <option value="fa-IR">🇮🇷 Persian</option>
+    </select>
+
+<div id="logo">
+    <img src="https://studio.orient-telecoms.com/img/avatarstudios-final.png">  
+    </div> 
+
+    <!-- <iframe id="overlay-iframe" class="iframe-overlay" src="https://local-api.orient-apps.com/GPU/"></iframe> -->
+
+    <div class="container-fluid h-100 d-flex flex-column">
+        <div id="chat-box" class="chat-box flex-grow-1 mb-3 overflow-auto">
+            <!-- Chat messages will be appended here -->
+        </div>
+        <form id="chat-form" class="input-group fixed-bottom px-3 py-2">
+            <input type="text" id="user-input" class="form-control rounded-pill" placeholder="Type your message..." autocomplete="off" required>
+            <button type="submit" class="btn btn-primary d-none">Send</button>
+        </form>
+    </div>
+    <!-- Bootstrap JavaScript -->
+    <script src="//cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	
+	<script>
+
+    const API_KEY = "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";
+	const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
+
+	const chatBox = document.getElementById("chat-box");
+	const chatForm = document.getElementById("chat-form");
+
+	let conversationHistory = [{ role: "assistant", content: "You are Mazlina the Intern for IT Department. You are Professional." }];
+
+	// Handles form submission and sends user input to the chatbot
+	chatForm.addEventListener("submit", async (event) => {
+		event.preventDefault();
+		const userInput = document.getElementById("user-input").value;
+		appendMessage(userInput, "user");
+		chatForm.reset();
+
+		conversationHistory.push({ role: "user", content: userInput });
+
+		const response = await fetchGPTResponse(userInput);
+		appendMessage(response, "chatbot");
+
+		conversationHistory.push({ role: "assistant", content: response });
+	});
+
+	// Fetches response from the LLM
+	async function fetchGPTResponse(prompt) {
+		const headers = {
+			"Content-Type": "application/json",
+			"Authorization": `Bearer ${API_KEY}`,
+		};
+		
+		// Get current date
+		const currentDate = new Date();
+		
+		// Get current date and time
+		const currentTime = new Date();
+
+		// Format date as a string
+		const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+		
+		// Format time as a string
+		const formattedTime = `${currentTime.getHours()}:${currentTime.getMinutes()}:${currentTime.getSeconds()}`;
+
+		// Display the date in the console
+		console.log('Current date:', formattedDate);
+		console.log('Current time:', formattedTime);
+		
+        const now = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        const formattedDateTime = now.toLocaleString('en-US', options);
+		
+		console.log('Current Date/Time:', formattedDateTime);
+
+		let KnowledgeDataset = 
+			`${formattedDateTime} \n\n` ;
+			// `Today date is ${formattedDate} \n\n` +
+			// `Current time now is ${formattedTime} \n\n` ;
+
+		// Display the KnowledgeDataset in the console
+		console.log(KnowledgeDataset);
+		
+		const TotalWords = (200 * 25) / 100;
+
+		const FinalWords = 200 - TotalWords;
+		
+        let promptLimit = `You are an Intern for IT Department named Mazlina. Please provide responses in complete, well-structured sentences. Ensure that each response is clear, informative, and coherent even if you need to exceed maximum ${FinalWords} words.`;
+
+        // let AvaPrompt = `You are Mazlina the Intern for IT Department. You are Professional.`;
+		
+		let promptEngineering = `You will talk in Malay.`;
+
+		let systemPrompt = `You are intern for Asrix Prime.`;
+
+		let systemInstruction = `You only provide information related to the context prompt. If the information is not available in the context prompt or if uncertain, simply state you don't know.`;
+		
+		let pdfLinks = [
+			 		];
+
+		let urlLinks = [
+			 		];
+
+		let pdfLinksText = pdfLinks.map(link => `PDF Link: ${link}`).join('\n');
+		let urlLinksText = urlLinks.map(link => `URL Link: ${link}`).join('\n');
+
+		const data = {
+			model: 'gpt-4o-mini',
+			messages: conversationHistory.concat({ role: "user", content: promptLimit + KnowledgeDataset + systemInstruction + promptEngineering + '\n\n' + pdfLinksText + '\n\n' + urlLinksText + '\n\n' + systemPrompt + prompt }),
+			// messages: conversationHistory.concat({ role: "user", content: promptLimit + AvaPrompt + KnowledgeDataset + systemInstruction + promptEngineering + '\n\n' + pdfLinksText + '\n\n' + urlLinksText + '\n\n' + systemPrompt + prompt }),
+			"max_tokens": 200,
+			"temperature": 0.7,
+			"top_p": 0.9		};
+
+		try {
+			const response = await fetch(OPENAI_API_URL, {
+				method: "POST",
+				headers: headers,
+				body: JSON.stringify(data),
+			});
+
+			if (!response.ok) {
+				const errorResponse = await response.json();
+				console.error("API Error:", errorResponse);
+				throw new Error("API Error");
+			}
+
+			const jsonResponse = await response.json();
+			return jsonResponse.choices[0].message.content.trim();
+		    } catch (error) {
+			console.error("Error fetching AsX-LLM response:", error);
+			return "ERROR! Please check your setting on Avatar Studio!";
+		}
+		
+	}
+
+	async function typeWriter(element, text, delay = 50) {
+		for (let i = 0; i < text.length; i++) {
+			element.innerHTML += text[i];
+			await new Promise((resolve) => setTimeout(resolve, delay));
+		}
+	}	
+		
+	// Function to decode HTML entities
+	function decodeHTMLEntities(input) {
+	const doc = new DOMParser().parseFromString(input, "text/html");
+	return doc.documentElement.textContent;
+	}
+
+	async function appendMessage(text, sender) {
+		const decodedText = decodeHTMLEntities(text)
+        		.replace(/&#x27;/g, "'") 
+				.replace(/&quot;/g, "'")
+				.replace(/\*smiles\*/g, "")
+				.replace(/\*laughs\*/g, "")
+				.replace(/\*smiling\*/g, "")
+				.replace(/\*smile\*/g, "")
+				.replace(/\*excited tone\*/g, "")
+        		.replace(/\*excited nod\*/g, "")
+				.replace(/\*nods enthusiastically\*/g, "")
+				.replace(/\*nods\*/g, "")
+				.replace(/\*winks\*/g, "")
+				.replace(/\*chuckles\*/g, "")
+				.replace(/\*curious\*/g, "")
+				.replace(/\*excited\*/g, "")
+				.replace(/\*adjusts glasses\*/g, "")
+				.replace(/\*excited smile\*/g, "")
+				.replace(/\*giggles\*/g, "")
+				.replace(/\*wink\*/g, "")
+				.replace(/\*grin\*/g, "")
+				.replace(/\*coyly\*/g, "")
+				.replace(/\*smiling mischievously\*/g, "")
+				.replace(/\*friendly tone\*/g, "")
+				.replace(/\*nodding\*/g, "")
+				.replace(/\*nod\*/g, "")
+				.replace(/\*laughs\*/g, "")
+				.replace(/\*proudly\*/g, "")
+				.replace(/\*excitedly\*/g, "")
+				.replace(/\*excited chuckle\*/g, "")
+				.replace(/\*pausing\*/g, "")
+				.replace(/\*grins\*/g, "")
+				.replace(/\*looks friendly and approachable\*/g, "")
+				.replace(/\*adjusting glasses\*/g, "")
+				.replace(/\*winking\*/g, "")
+				.replace(/\(smiling\)/g, "")
+				.replace(/&amp;/g, "&"); // Decode HTML entities
+	  const message = document.createElement("div");
+	  message.className =
+		sender === "user" ? "user-message" : "chatbot-message";
+	  message.innerHTML = `<span class="message-text"></span>`;
+
+	  // Insert the new message at the beginning of the chat box
+	  if (chatBox.firstChild) {
+		chatBox.insertBefore(message, chatBox.firstChild);
+	  } else {
+		chatBox.appendChild(message);
+	  }
+
+	  const messageText = message.querySelector(".message-text");
+	  await typeWriter(messageText, decodedText); // Call the typeWriter function
+
+	  // Scroll to the latest message
+	  scrollToLatestMessage();
+	}
+		
+	function scrollToLatestMessage() {
+		chatBox.scrollTop = 0; // Set scrollTop to 0 to always display the latest message at the top
+	}
+
+	let userName = null;
+
+	// Country to Language mapping
+	const countryToLang = {
+		"US": "en-US",
+		"IN": "hi-IN",
+		"CN": "zh-CN",
+		"TW": "zh-TW",
+		"HK": "zh-HK",
+		"TH": "th-TH",
+		"JP": "ja-JP",
+		"KR": "ko-KR",
+		"ID": "id-ID",
+		"MY": "ms-MY",
+		"PH": "tl-PH",
+		"VN": "vi-VN",
+		"SG": "en-SG",
+		"FR": "fr-FR",
+		"DE": "de-DE",
+		"RU": "ru-RU",
+		"ES": "es-ES",
+		"IT": "it-IT",
+		"TR": "tr-TR",
+		"SA": "ar-SA",
+		"IR": "fa-IR"
+	};
+
+	// Greeting translations
+	const greetings = {
+		"en-US": "Hi! My name is",
+		"ms-MY": "Hai! Nama saya",
+		"zh-CN": "你好！我的名字是",
+		"hi-IN": "नमस्ते! मेरा नाम है",
+		"th-TH": "สวัสดี! ฉันชื่อ",
+		"ja-JP": "こんにちは！私の名前は",
+		"ko-KR": "안녕하세요! 제 이름은",
+		"fr-FR": "Bonjour ! Je m'appelle",
+		"de-DE": "Hallo! Mein Name ist",
+		"ru-RU": "Привет! Меня зовут",
+		"es-ES": "¡Hola! Me llamo",
+		"it-IT": "Ciao! Mi chiamo",
+		"tr-TR": "Merhaba! Benim adım",
+		"ar-SA": "مرحبًا! اسمي",
+		"fa-IR": "سلام! اسم من",
+		"auto": "Hi! My name is"
+	};
+
+	// UI Translations
+	const uiTexts = {
+		"en-US": {
+		modalGreeting: "Welcome! What's your name?",
+		inputPlaceholder: "Type your message...",
+		namePlaceholder: "Enter your name"
+		},
+		"ms-MY": {
+		modalGreeting: "Selamat datang! Siapa nama anda?",
+		inputPlaceholder: "Taip mesej anda...",
+		namePlaceholder: "Masukkan nama anda"
+		},
+		"zh-CN": {
+		modalGreeting: "欢迎！你叫什么名字？",
+		inputPlaceholder: "请输入您的消息...",
+		namePlaceholder: "请输入您的姓名"
+		},
+		"hi-IN": {
+		modalGreeting: "स्वागत है! आपका नाम क्या है?",
+		inputPlaceholder: "अपना संदेश टाइप करें...",
+		namePlaceholder: "अपना नाम दर्ज करें"
+		},
+		"th-TH": {
+		modalGreeting: "ยินดีต้อนรับ! คุณชื่ออะไร?",
+		inputPlaceholder: "พิมพ์ข้อความของคุณ...",
+		namePlaceholder: "กรอกชื่อของคุณ"
+		},
+		"ja-JP": {
+		modalGreeting: "ようこそ！お名前は？",
+		inputPlaceholder: "メッセージを入力してください...",
+		namePlaceholder: "お名前を入力してください"
+		},
+		"ko-KR": {
+		modalGreeting: "환영합니다! 이름이 무엇인가요?",
+		inputPlaceholder: "메시지를 입력하세요...",
+		namePlaceholder: "이름을 입력하세요"
+		},
+		"fr-FR": {
+		modalGreeting: "Bienvenue ! Quel est votre nom ?",
+		inputPlaceholder: "Tapez votre message...",
+		namePlaceholder: "Entrez votre nom"
+		},
+		"de-DE": {
+		modalGreeting: "Willkommen! Wie heißen Sie?",
+		inputPlaceholder: "Geben Sie Ihre Nachricht ein...",
+		namePlaceholder: "Geben Sie Ihren Namen ein"
+		},
+		"ru-RU": {
+		modalGreeting: "Добро пожаловать! Как вас зовут?",
+		inputPlaceholder: "Введите ваше сообщение...",
+		namePlaceholder: "Введите ваше имя"
+		},
+		"es-ES": {
+		modalGreeting: "¡Bienvenido! ¿Cómo te llamas?",
+		inputPlaceholder: "Escribe tu mensaje...",
+		namePlaceholder: "Escribe tu nombre"
+		},
+		"it-IT": {
+		modalGreeting: "Benvenuto! Come ti chiami?",
+		inputPlaceholder: "Scrivi il tuo messaggio...",
+		namePlaceholder: "Inserisci il tuo nome"
+		},
+		"tr-TR": {
+		modalGreeting: "Hoş geldiniz! Adınız nedir?",
+		inputPlaceholder: "Mesajınızı yazın...",
+		namePlaceholder: "Adınızı girin"
+		},
+		"ar-SA": {
+		modalGreeting: "مرحباً! ما اسمك؟",
+		inputPlaceholder: "اكتب رسالتك...",
+		namePlaceholder: "أدخل اسمك"
+		},
+		"fa-IR": {
+		modalGreeting: "سلام! اسمت چیه؟",
+		inputPlaceholder: "پیام خود را وارد کنید...",
+		namePlaceholder: "نام خود را وارد کنید"
+		},
+		"auto": {
+		modalGreeting: "Welcome! What's your name?",
+		inputPlaceholder: "Type your message...",
+		namePlaceholder: "Enter your name"
+		}
+	};
+
+	// Resolve selected or auto-detected language
+	let detectedLang = "en-US";
+	async function getSelectedLanguage() {
+		const selector = document.getElementById("language-selector");
+		const selected = selector ? selector.value : "auto";
+
+		if (selected === "auto") {
+			if (detectedLang !== "en-US") return detectedLang;
+			try {
+				const res = await fetch("https://ipapi.co/json/");
+				const data = await res.json();
+				const countryCode = data.country;
+				detectedLang = countryToLang[countryCode] || "en-US";
+			} catch (err) {
+				console.warn("Geo IP lookup failed:", err);
+				detectedLang = "en-US";
+			}
+			return detectedLang;
+		}
+		return selected;
+	}
+
+	// Update modal and input placeholders
+	function updateUITexts(langCode) {
+	const texts = uiTexts[langCode] || uiTexts["auto"];
+	const modalTitle = document.getElementById("modalGreeting");
+	const inputField = document.getElementById("user-input");
+	const nameInput = document.getElementById("userNameInput");
+
+	if (modalTitle) modalTitle.textContent = texts.modalGreeting;
+	if (inputField) inputField.placeholder = texts.inputPlaceholder;
+	if (nameInput) nameInput.placeholder = texts.namePlaceholder;
+
+	if (["ar-SA", "fa-IR"].includes(langCode)) {
+		if (inputField) inputField.setAttribute("dir", "rtl");
+		if (nameInput) nameInput.setAttribute("dir", "rtl");
+	} else {
+		if (inputField) inputField.setAttribute("dir", "ltr");
+		if (nameInput) nameInput.setAttribute("dir", "ltr");
+	}
+	}
+
+	// Speech Recognition setup
+	const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+	const recognition = new SpeechRecognition();
+	recognition.interimResults = false;
+	recognition.maxAlternatives = 1;
+
+	// On DOM ready
+	window.addEventListener("DOMContentLoaded", async () => {
+		const lang = await getSelectedLanguage();
+		recognition.lang = lang;
+		updateUITexts(lang);
+
+		const nameModal = document.getElementById("nameModal");
+		const userNameInput = document.getElementById("userNameInput");
+		const submitNameBtn = document.getElementById("submitNameBtn");
+
+		if (submitNameBtn) {
+			submitNameBtn.addEventListener("click", async () => {
+				const name = userNameInput.value.trim();
+				if (name) {
+					userName = name;
+					if (nameModal) nameModal.style.display = "none";
+
+					const lang = await getSelectedLanguage();
+					const greetingPrefix = greetings[lang] || greetings["auto"];
+					const greeting = `${greetingPrefix} ${userName}`;
+
+					const userInputField = document.getElementById("user-input");
+					const chatForm = document.getElementById("chat-form");
+					if (userInputField && chatForm) {
+						userInputField.value = greeting;
+						chatForm.dispatchEvent(new Event("submit"));
+					}
+				} else {
+					alert("Please enter your name.");
+				}
+			});
+		}
+	});
+
+	// Language change listener
+	const languageSelector = document.getElementById("language-selector");
+	languageSelector.addEventListener("change", async () => {
+		const lang = await getSelectedLanguage();
+		recognition.lang = lang;
+		updateUITexts(lang);
+	});
+	</script>
+</body>
+</html>
+ 
