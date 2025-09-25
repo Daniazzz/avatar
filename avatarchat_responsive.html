@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -403,43 +404,36 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://unpkg.com/franc@6.1.0/build/franc.min.js"></script>
 </link></meta></meta></meta><style>
-/* ===== Enhancements for Mobile Responsiveness ===== */
-
-/* Sidebar collapses on mobile */
+/* ===== Mobile Menu Fix for iPhone ===== */
 @media (max-width: 768px) {
+    /* Sidebar should not push content */
     .side-body {
         margin-left: 0 !important;
+        margin-top: 60px; /* space for top navbar */
     }
+
+    /* Sidebar becomes a dropdown overlay */
     .sidebar {
-        width: 100% !important;
-        position: relative !important;
-    }
-}
-
-/* DataTables responsive scroll */
-@media (max-width: 768px) {
-    table.dataTable {
-        display: block;
+        position: fixed !important;
+        top: 50px; /* below the top navbar */
+        left: 0;
         width: 100%;
-        overflow-x: auto;
-        white-space: nowrap;
+        height: auto;
+        z-index: 9999;
+        display: none; /* hidden by default */
+        background: #f8f8f8;
     }
-}
 
-/* Responsive images */
-img {
-    max-width: 100%;
-    height: auto;
-}
+    /* When toggled */
+    .sidebar.active {
+        display: block;
+    }
 
-/* Button scaling */
-.btn-circle {
-    width: 2.2em;
-    height: 2.2em;
-    text-align: center;
-    padding: 0.4em 0;
-    font-size: 0.9em;
-    border-radius: 50%;
+    /* Sidebar links bigger for mobile */
+    .sidebar .nav > li > a {
+        padding: 15px;
+        font-size: 16px;
+    }
 }
 </style></head>
 <script>
@@ -643,37 +637,37 @@ img {
 <button class="btn btn-danger ms-2" id="microphone-btn" type="button">
 <i class="fas fa-head-side-cough"></i>
 </button>
-                              
+                              
                             <button class="btn btn-danger ms-2" id="stop-tts-btn" type="button">
 <i class="fas fa-head-side-cough-slash"></i>
 </button>
-                              
+                              
                             <button class="btn btn-warning ms-2" onclick="removeContent()" type="button">
 <i class="fas fa-user-minus"></i>
 </button>
-                              
+                              
                             <button class="btn btn-info ms-2" onclick="toggleElements()" type="button">
 <i class="fas fa-eye-slash"></i>
 </button>
-                              
+                              
                             <button class="btn btn-primary ms-2" onclick="toggleFullScreen()" type="button">
 <i class="fas fa-expand"></i>
 </button>
 <!-- &nbsp;&nbsp;
 							<input type="range" id="voice-speed" min="0.5" max="2" step="0.1" value="2" disabled /> -->
-                              
+                              
                             <button class="btn btn-secondary ms-2" id="pause-tts-btn" type="button">
 <i class="fas fa-pause-circle"></i>
 </button>
-                              
+                              
                             <button class="btn btn-success ms-2" id="resume-tts-btn" type="button">
 <i class="fas fa-play-circle"></i>
 </button>
-                             
+                             
                             <button class="btn btn-dark ms-2" id="save-chat-btn" type="button">
 <i class="fas fa-save"></i>
 </button>
-                              
+                              
                             <button class="btn btn-outline-secondary ms-2" id="upload-chat-btn" type="button">
 <i class="fas fa-upload"></i>
 <input accept=".json,.csv" id="upload-chat-input" style="display:none" type="file"/>
@@ -1638,5 +1632,11 @@ img {
             reader.readAsText(file);
         });
     </script>
-</body>
+<script>
+$(function () {
+    $('.navbar-toggle-sidebar').click(function () {
+        $('.sidebar').toggleClass('active');
+    });
+});
+</script></body>
 </html>
