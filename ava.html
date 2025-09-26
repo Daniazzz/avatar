@@ -457,20 +457,34 @@
         display: none;
     }
 }
-	@media (max-width: 768px) {
+@media (max-width: 768px) {
+    /* ✅ Chat box above menu, clickable */
     .chat-box {
         position: fixed !important;
-        bottom: 70px !important;        /* sits above menu bar */
-        left: 50% !important;           /* center horizontally */
+        bottom: 70px !important;            /* sits above menu */
+        left: 50% !important;
         transform: translateX(-50%) !important;
         width: 95% !important;
         max-height: 40vh !important;
         min-height: 20vh !important;
         border-radius: 10px !important;
-        background: rgba(255,255,255,0.9) !important;
-        z-index: 9998 !important;
+        background: rgba(255,255,255,0.95) !important;
+        z-index: 10001 !important;          /* keep on top of avatar */
+        pointer-events: auto !important;    /* make it clickable */
+    }
+
+    /* ✅ Menu bar pinned at bottom */
+    #chat-form {
+        z-index: 10000 !important;          /* just under chat box */
+    }
+
+    /* ✅ Ensure avatar/background stay behind */
+    .imgAvatar, 
+    .video-background {
+        z-index: 1 !important;
     }
 }
+
 
 
     </style>
