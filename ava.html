@@ -457,6 +457,21 @@
         display: none;
     }
 }
+	@media (max-width: 768px) {
+    .chat-box {
+        position: fixed !important;
+        bottom: 70px !important;        /* sits above menu bar */
+        left: 50% !important;           /* center horizontally */
+        transform: translateX(-50%) !important;
+        width: 95% !important;
+        max-height: 40vh !important;
+        min-height: 20vh !important;
+        border-radius: 10px !important;
+        background: rgba(255,255,255,0.9) !important;
+        z-index: 9998 !important;
+    }
+}
+
 
     </style>
     <link
