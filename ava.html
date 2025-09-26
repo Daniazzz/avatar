@@ -412,7 +412,7 @@
         flex-wrap: nowrap !important;        /* keep buttons in one row */
         overflow-x: auto !important;         /* enable horizontal scroll */
         gap: 6px !important;
-        background: #fff !important;
+        background: #fff !important; 
         padding: 6px 8px !important;
         box-shadow: 0 -2px 6px rgba(0,0,0,0.15) !important;
         z-index: 10000 !important;           /* under chat box */
@@ -443,6 +443,46 @@
     .imgAvatar,
     .video-background {
         z-index: 1 !important;
+    }
+}
+@media (max-width: 768px) {
+    #chat-form {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important; /* stack input above menu */
+        background: #fff !important;
+        padding: 6px 8px !important;
+        box-shadow: 0 -2px 6px rgba(0,0,0,0.15) !important;
+        z-index: 9999 !important;
+        border-radius: 0 !important;
+    }
+
+    /* Chat input row */
+    #chat-form .form-control {
+        margin-bottom: 6px !important;  /* spacing between input and menu */
+        width: 100% !important;
+    }
+
+    /* Menu buttons row */
+    #chat-form .menu-row {
+        display: flex !important;
+        flex-wrap: nowrap !important;	
+        overflow-x: auto !important;
+        gap: 6px !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    #chat-form .menu-row button {
+        flex: 0 0 auto !important;
+        padding: 8px 10px !important;
+        font-size: 16px !important;
+    }
+
+    #chat-form .menu-row::-webkit-scrollbar {
+        display: none;
     }
 }
 
