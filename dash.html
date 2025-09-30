@@ -1002,5 +1002,24 @@ $(document).ready(function () {
     $('div.setup-panel div a.btn-primary').trigger('click');
 });
 </script>
+	<script>
+$(document).ready(function () {
+  // Toggle sidebar when "MENU" button is clicked
+  $(".navbar-toggle-sidebar").click(function () {
+    $(".side-menu-container .navbar-nav").toggleClass("slide-in");
+    $(".side-body").toggleClass("body-slide-in");
+  });
+
+  // Close sidebar when clicking outside (optional for mobile UX)
+  $(document).click(function (e) {
+    if (!$(e.target).closest('.side-menu, .navbar-toggle-sidebar').length) {
+      $(".side-menu-container .navbar-nav").removeClass("slide-in");
+      $(".side-body").removeClass("body-slide-in");
+    }
+  });
+});
+</script>
+
 </body>
+
 </html>
