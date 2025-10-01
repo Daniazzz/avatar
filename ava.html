@@ -1743,6 +1743,84 @@
             reader.readAsText(file);
         });
     </script>
+<script>
+    const GEMINI_API_KEY = "AIzaSyBE4Tw_30cYCMFdZ6GirOP1Z10DE5Qafbs";
+    const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent";
+
+    const chatBox = document.getElementById("chat-box");
+    const chatForm = document.getElementById("chat-form");
+    const microphoneBtn = document.getElementById("microphone-btn");
+
+    let conversationHistory = [{ role: "assistant", content: "You are Prime the Digital AI Assistant. You are Professional." }];
+
+    // ✅ Handles form submission
+    chatForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const userInputElement = document.getElementById("user-input");
+        const userInput = userInputElement.value;
+        appendMessage(userInput, "user");
+        chatForm.reset();
+
+        // Disable typing while waiting
+        userInputElement.disabled = true;
+
+        try {
+            const response = await fetchGPTResponse(userInput);
+            appendMessage(response, "chatbot");
+        } catch (error) {
+            console.error("Error fetching response:", error);
+            appendMessage("❌ Sorry, there was an error. Please try again.", "chatbot");
+        } finally {
+            // ✅ Always re-enable input
+            userInputElement.disabled = false;
+            userInputElement.focus();
+        }
+    });
+
+    // ✅ Fetch response from Gemini 2.5 API
+    async function fetchGPTResponse(prompt) {
+        const headers = { "Content-Type": "application/json" };
+        const requestBody = {
+            model: "gemini-2.5-flash",
+            contents: [{
+                role: "user",
+                parts: [{ text: prompt }]
+            }],
+            generationConfig: {
+                temperature: 0.7,
+                maxOutputTokens: 500,
+                topP: 0.8,
+                topK: 40
+            },
+            safetySettings: [
+                { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" }
+            ]
+        };
+
+        try {
+            const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                method: "POST",
+                headers,
+                body: JSON.stringify(requestBody),
+            });
+
+            if (!response.ok) {
+                const errorResponse = await response.json();
+                console.error("Gemini API Error:", errorResponse);
+                throw new Error("Gemini API Error");
+            }
+
+            const jsonResponse = await response.json();
+            console.log("Gemini response:", jsonResponse); // ✅ Debug log
+            const textResponse = jsonResponse.candidates?.[0]?.content?.parts?.[0]?.text || "⚠️ No response.";
+            return textResponse;
+        } catch (error) {
+            console.error("Error fetching Gemini response:", error);
+            return "❌ ERROR! Please check Gemini API settings.";
+        }
+    }
+</script>
 
 
 </body>
