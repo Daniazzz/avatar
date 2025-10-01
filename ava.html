@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -386,7 +385,7 @@
         #export-controls {
             display: none !important;
         }
-/* ✅ Mobile adjustments */
+/* âœ… Mobile adjustments */
 @media (max-width: 768px) {
     /* Chat box above menu */
     .chat-box {
@@ -547,25 +546,25 @@
         </div>
     </div>
 
-    <!-- ✅ ADD THIS in <body>, near the top (before container-fluid) -->
+    <!-- âœ… ADD THIS in <body>, near the top (before container-fluid) -->
     <select id="language-selector" class="form-select"
         style="position:fixed;top:50px;left:10px;width:200px;z-index:9999;">
-        <option value="auto">🌐 Auto Detect</option>
-        <option value="en-US">🇺🇸 English (US)</option>
-        <option value="ms-MY">🇲🇾 Malay</option>
-        <option value="zh-CN">🇨🇳 Chinese (Simplified)</option>
-        <option value="hi-IN">🇮🇳 Hindi</option>
-        <option value="th-TH">🇹🇭 Thai</option>
-        <option value="ja-JP">🇯🇵 Japanese</option>
-        <option value="ko-KR">🇰🇷 Korean</option>
-        <option value="fr-FR">🇫🇷 French</option>
-        <option value="de-DE">🇩🇪 German</option>
-        <option value="ru-RU">🇷🇺 Russian</option>
-        <option value="es-ES">🇪🇸 Spanish</option>
-        <option value="it-IT">🇮🇹 Italian</option>
-        <option value="tr-TR">🇹🇷 Turkish</option>
-        <option value="ar-SA">🇸🇦 Arabic</option>
-        <option value="fa-IR">🇮🇷 Persian</option>
+        <option value="auto">ðŸŒ Auto Detect</option>
+        <option value="en-US">ðŸ‡ºðŸ‡¸ English (US)</option>
+        <option value="ms-MY">ðŸ‡²ðŸ‡¾ Malay</option>
+        <option value="zh-CN">ðŸ‡¨ðŸ‡³ Chinese (Simplified)</option>
+        <option value="hi-IN">ðŸ‡®ðŸ‡³ Hindi</option>
+        <option value="th-TH">ðŸ‡¹ðŸ‡­ Thai</option>
+        <option value="ja-JP">ðŸ‡¯ðŸ‡µ Japanese</option>
+        <option value="ko-KR">ðŸ‡°ðŸ‡· Korean</option>
+        <option value="fr-FR">ðŸ‡«ðŸ‡· French</option>
+        <option value="de-DE">ðŸ‡©ðŸ‡ª German</option>
+        <option value="ru-RU">ðŸ‡·ðŸ‡º Russian</option>
+        <option value="es-ES">ðŸ‡ªðŸ‡¸ Spanish</option>
+        <option value="it-IT">ðŸ‡®ðŸ‡¹ Italian</option>
+        <option value="tr-TR">ðŸ‡¹ðŸ‡· Turkish</option>
+        <option value="ar-SA">ðŸ‡¸ðŸ‡¦ Arabic</option>
+        <option value="fa-IR">ðŸ‡®ðŸ‡· Persian</option>
     </select>
 
     <div id="tts-indicator" style="
@@ -771,7 +770,7 @@
                     <div id="export-controls" style="margin-top: 1rem;">
                         <label>From: <input id="start-date" type="datetime-local" /></label>
                         <label>To: <input id="end-date" type="datetime-local" /></label>
-                        <button class="btn btn-warning ms-2" id="export-pdf-btn">📄 Export to PDF</button>
+                        <button class="btn btn-warning ms-2" id="export-pdf-btn">ðŸ“„ Export to PDF</button>
                         <input accept=".json,.csv" class="ms-2" id="import-log" type="file" />
                     </div>
                 </div>
@@ -792,86 +791,758 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
 
-    
     <script>
-    const GEMINI_API_KEY = "AIzaSyBE4Tw_30cYCMFdZ6GirOP1Z10DE5Qafbs";
-    const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent";
 
-    const chatBox = document.getElementById("chat-box");
-    const chatForm = document.getElementById("chat-form");
-    const microphoneBtn = document.getElementById("microphone-btn");
+        const GEMINI_API_KEY = "AIzaSyBE4Tw_30cYCMFdZ6GirOP1Z10DE5Qafbs";
+        const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent";
 
-    let conversationHistory = [{ role: "assistant", content: "You are Prime the Digital AI Assistant. You are Professional." }];
+        const chatBox = document.getElementById("chat-box");
+        const chatForm = document.getElementById("chat-form");
+        const microphoneBtn = document.getElementById("microphone-btn");
 
-    // ✅ Handles form submission
-    chatForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        const userInputElement = document.getElementById("user-input");
-        const userInput = userInputElement.value;
-        appendMessage(userInput, "user");
-        chatForm.reset();
+        let conversationHistory = [{ role: "assistant", content: "You are Prime the Digital AI Assistant. You are Professional." }];
 
-        // Disable typing while waiting
-        userInputElement.disabled = true;
+        // Handles form submission and sends user input to the chatbot
+        chatForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const userInputElement = document.getElementById("user-input");
+            const userInput = userInputElement.value;
+            appendMessage(userInput, "user");
+            chatForm.reset();
 
-        try {
-            const response = await fetchGPTResponse(userInput);
-            appendMessage(response, "chatbot");
-        } catch (error) {
-            console.error("Error fetching response:", error);
-            appendMessage("❌ Sorry, there was an error. Please try again.", "chatbot");
-        } finally {
-            // ✅ Always re-enable input
-            userInputElement.disabled = false;
-            userInputElement.focus();
+            // Disable the user input field
+            userInputElement.disabled = true;
+
+            //conversationHistory.push({ role: "user", content: userInput });
+
+            try {
+                const response = await fetchGPTResponse(userInput);
+                appendMessage(response, "chatbot");
+                //conversationHistory.push({ role: "assistant", content: response });
+            } catch (error) {
+                console.error("Error fetching response:", error);
+                appendMessage("Sorry, there was an error getting the response. Please try again.", "chatbot");
+            } finally {
+                // Enable the user input field
+                // userInputElement.disabled = false;
+                // userInputElement.focus(); // Optionally focus the input field
+            }
+        });
+
+        // // Speech Recognition
+        // const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        // const recognition = new SpeechRecognition();
+
+        // const synth = window.speechSynthesis; // Move this line to the global scope
+
+        // let shouldContinueTyping = true;
+
+        // recognition.lang = 'ms-MY';
+        // recognition.interimResults = false;
+        // recognition.maxAlternatives = 1;
+
+        // microphoneBtn.addEventListener("click", () => {
+        //     recognition.start();
+        // });
+
+        // recognition.addEventListener("result", (event) => {
+        //     const speechResult = event.results[0][0].transcript;
+        //     document.getElementById("user-input").value = speechResult;
+        // });
+
+        // recognition.addEventListener("end", () => {
+        //     const speechResult = document.getElementById("user-input").value;
+        //     if (speechResult) {
+        //         chatForm.dispatchEvent(new Event("submit"));
+        //     }
+        // });
+
+        const synth = window.speechSynthesis;
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        let userName = null;
+
+        async function detectLanguageByIP() {
+            try {
+                const res = await fetch("https://ipapi.co/json/");
+                const data = await res.json();
+                const countryCode = data.country_code;
+                return mapCountryToLanguage(countryCode);
+            } catch (e) {
+                console.warn("IP detection failed. Fallback to browser language.");
+                return navigator.language || "en-US";
+            }
         }
-    });
 
-    // ✅ Fetch response from Gemini 2.5 API
-    async function fetchGPTResponse(prompt) {
-        const headers = { "Content-Type": "application/json" };
-        const requestBody = {
-            model: "gemini-2.5-flash",
-            contents: [{
-                role: "user",
-                parts: [{ text: prompt }]
-            }],
-            generationConfig: {
-                temperature: 0.7,
-                maxOutputTokens: 500,
-                topP: 0.8,
-                topK: 40
-            },
-            safetySettings: [
-                { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-                { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" }
-            ]
+        function mapCountryToLanguage(code) {
+            const map = {
+                "MY": "ms-MY", "SG": "en-US", "CN": "zh-CN", "JP": "ja-JP", "KR": "ko-KR", "TH": "th-TH", "IN": "hi-IN",
+                "PH": "en-US", "VN": "en-US", "ID": "id-ID", "AE": "ar-SA", "SA": "ar-SA", "IR": "fa-IR", "TR": "tr-TR",
+                "FR": "fr-FR", "DE": "de-DE", "ES": "es-ES", "IT": "it-IT", "RU": "ru-RU", "GB": "en-GB", "US": "en-US",
+                "CA": "en-US", "MX": "es-ES", "BR": "pt-BR"
+            };
+            return map[code] || "en-US";
+        }
+
+        const greetings = {
+            "en-US": "Hi! My name is", "ms-MY": "Hai! Nama saya", "zh-CN": "ä½ å¥½ï¼æˆ‘çš„åå­—æ˜¯", "hi-IN": "à¤¨à¤®à¤¸à¥à¤¤à¥‡! à¤®à¥‡à¤°à¤¾ à¤¨à¤¾à¤® à¤¹à¥ˆ",
+            "th-TH": "à¸ªà¸§à¸±à¸ªà¸”à¸µ! à¸‰à¸±à¸™à¸Šà¸·à¹ˆà¸­", "ja-JP": "ã“ã‚“ã«ã¡ã¯ï¼ç§ã®åå‰ã¯", "ko-KR": "ì•ˆë…•í•˜ì„¸ìš”! ì œ ì´ë¦„ì€", "fr-FR": "Bonjour! Je m'appelle",
+            "de-DE": "Hallo! Ich heiÃŸe", "es-ES": "Â¡Hola! Me llamo", "it-IT": "Ciao! Mi chiamo", "ru-RU": "ÐŸÑ€Ð¸Ð²ÐµÑ‚! ÐœÐµÐ½Ñ Ð·Ð¾Ð²ÑƒÑ‚",
+            "tr-TR": "Merhaba! Benim adÄ±m", "ar-SA": "Ù…Ø±Ø­Ø¨Ø§Ù‹! Ø§Ø³Ù…ÙŠ", "fa-IR": "Ø³Ù„Ø§Ù…! Ø§Ø³Ù… Ù…Ù†", "pt-BR": "OlÃ¡! Meu nome Ã©", "auto": "Hi! My name is"
         };
 
-        try {
-            const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
-                method: "POST",
-                headers,
-                body: JSON.stringify(requestBody),
-            });
+        const modalGreetings = {
+            "en-US": "Welcome! What's your name?", "ms-MY": "Selamat datang! Siapa nama anda?", "zh-CN": "æ¬¢è¿Žï¼ä½ å«ä»€ä¹ˆåå­—ï¼Ÿ",
+            "hi-IN": "à¤¸à¥à¤µà¤¾à¤—à¤¤ à¤¹à¥ˆ! à¤†à¤ªà¤•à¤¾ à¤¨à¤¾à¤® à¤•à¥à¤¯à¤¾ à¤¹à¥ˆ?", "th-TH": "à¸¢à¸´à¸™à¸”à¸µà¸•à¹‰à¸­à¸™à¸£à¸±à¸š! à¸„à¸¸à¸“à¸Šà¸·à¹ˆà¸­à¸­à¸°à¹„à¸£?", "ja-JP": "ã‚ˆã†ã“ãï¼ãŠåå‰ã¯ï¼Ÿ",
+            "ko-KR": "í™˜ì˜í•©ë‹ˆë‹¤! ì´ë¦„ì´ ë­ì˜ˆìš”?", "fr-FR": "Bienvenue ! Quel est votre nom ?", "de-DE": "Willkommen! Wie heiÃŸen Sie?",
+            "es-ES": "Â¡Bienvenido! Â¿CÃ³mo te llamas?", "it-IT": "Benvenuto! Come ti chiami?", "ru-RU": "Ð”Ð¾Ð±Ñ€Ð¾ Ð¿Ð¾Ð¶Ð°Ð»Ð¾Ð²Ð°Ñ‚ÑŒ! ÐšÐ°Ðº Ð²Ð°Ñ Ð·Ð¾Ð²ÑƒÑ‚?",
+            "tr-TR": "HoÅŸ geldiniz! AdÄ±nÄ±z nedir?", "ar-SA": "Ù…Ø±Ø­Ø¨Ù‹Ø§! Ù…Ø§ Ø§Ø³Ù…ÙƒØŸ", "fa-IR": "Ø®ÙˆØ´ Ø¢Ù…Ø¯ÛŒØ¯! Ø§Ø³Ù…Øª Ú†ÛŒÙ‡ØŸ",
+            "pt-BR": "Bem-vindo! Qual Ã© o seu nome?", "auto": "Welcome! What's your name?"
+        };
 
-            if (!response.ok) {
-                const errorResponse = await response.json();
-                console.error("Gemini API Error:", errorResponse);
-                throw new Error("Gemini API Error");
+        const namePlaceholders = {
+            "en-US": "Enter your name", "ms-MY": "Masukkan nama anda", "zh-CN": "è¾“å…¥ä½ çš„åå­—", "hi-IN": "à¤…à¤ªà¤¨à¤¾ à¤¨à¤¾à¤® à¤¦à¤°à¥à¤œ à¤•à¤°à¥‡à¤‚",
+            "th-TH": "à¸à¸£à¸­à¸à¸Šà¸·à¹ˆà¸­à¸‚à¸­à¸‡à¸„à¸¸à¸“", "ja-JP": "ã‚ãªãŸã®åå‰ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„", "ko-KR": "ì´ë¦„ì„ ìž…ë ¥í•˜ì„¸ìš”", "fr-FR": "Entrez votre nom",
+            "de-DE": "Geben Sie Ihren Namen ein", "es-ES": "Ingresa tu nombre", "it-IT": "Inserisci il tuo nome",
+            "ru-RU": "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð²Ð°ÑˆÐµ Ð¸Ð¼Ñ", "tr-TR": "AdÄ±nÄ±zÄ± girin", "ar-SA": "Ø£Ø¯Ø®Ù„ Ø§Ø³Ù…Ùƒ", "fa-IR": "Ù†Ø§Ù… Ø®ÙˆØ¯ Ø±Ø§ ÙˆØ§Ø±Ø¯ Ú©Ù†ÛŒØ¯",
+            "pt-BR": "Digite seu nome", "auto": "Enter your name"
+        };
+
+        const messagePlaceholders = {
+            "en-US": "Type your message...", "ms-MY": "Taip mesej anda...", "zh-CN": "è¾“å…¥ä½ çš„æ¶ˆæ¯...", "hi-IN": "à¤…à¤ªà¤¨à¤¾ à¤¸à¤‚à¤¦à¥‡à¤¶ à¤²à¤¿à¤–à¥‡à¤‚...",
+            "th-TH": "à¸žà¸´à¸¡à¸žà¹Œà¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡à¸‚à¸­à¸‡à¸„à¸¸à¸“...", "ja-JP": "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å…¥åŠ›...", "ko-KR": "ë©”ì‹œì§€ë¥¼ ìž…ë ¥í•˜ì„¸ìš”...", "fr-FR": "Tapez votre message...",
+            "de-DE": "Geben Sie Ihre Nachricht ein...", "es-ES": "Escribe tu mensaje...", "it-IT": "Scrivi il tuo messaggio...",
+            "ru-RU": "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð²Ð°ÑˆÐµ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ...", "tr-TR": "MesajÄ±nÄ±zÄ± yazÄ±n...", "ar-SA": "Ø§ÙƒØªØ¨ Ø±Ø³Ø§Ù„ØªÙƒ...", "fa-IR": "Ù¾ÛŒØ§Ù…Øª Ø±Ø§ Ø¨Ù†ÙˆÛŒØ³...",
+            "pt-BR": "Digite sua mensagem...", "auto": "Type your message..."
+        };
+
+        function setModalGreeting(lang) {
+            document.getElementById("modalGreeting").textContent = modalGreetings[lang] || modalGreetings["auto"];
+        }
+
+        function setNamePlaceholder(lang) {
+            document.getElementById("userNameInput").placeholder = namePlaceholders[lang] || namePlaceholders["auto"];
+        }
+
+        function setMessagePlaceholder(lang) {
+            document.getElementById("user-input").placeholder = messagePlaceholders[lang] || messagePlaceholders["auto"];
+        }
+
+        function getSelectedLanguage() {
+            const selector = document.getElementById("language-selector");
+            return selector ? selector.value : "auto";
+        }
+
+        const languageSelector = document.getElementById("language-selector");
+        languageSelector.addEventListener("change", async function () {
+            const selectedLang = this.value;
+            const lang = (selectedLang === "auto") ? await detectLanguageByIP() : selectedLang;
+            recognition.lang = lang;
+            setModalGreeting(lang);
+            setNamePlaceholder(lang);
+            setMessagePlaceholder(lang);
+        });
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const autoLang = await detectLanguageByIP();
+            recognition.lang = autoLang;
+            setModalGreeting(autoLang);
+            setNamePlaceholder(autoLang);
+            setMessagePlaceholder(autoLang);
+
+            const nameModal = document.getElementById("nameModal");
+            const userNameInput = document.getElementById("userNameInput");
+            const submitNameBtn = document.getElementById("submitNameBtn");
+            const chatBox = document.getElementById("chat-box");
+            const chatForm = document.getElementById("chat-form");
+
+            submitNameBtn.addEventListener("click", () => {
+                const name = userNameInput.value.trim();
+                if (!name) return alert("Please enter your name.");
+
+                userName = name;
+                nameModal.style.display = "none";
+
+                const selectedLang = getSelectedLanguage();
+                const lang = (selectedLang === "auto") ? recognition.lang : selectedLang;
+                const greeting = `${greetings[lang] || greetings["auto"]} ${userName}`;
+
+                document.getElementById("user-input").value = greeting;
+                chatForm.dispatchEvent(new Event("submit"));
+
+                chatBox.style.display = "flex";
+                chatForm.style.display = "flex";
+            });
+        });
+
+        // â€”â€”â€”â€”â€”â€”â€”â€”â€” Global Scope â€”â€”â€”â€”â€”â€”â€”â€”â€”
+        // const synth = window.speechSynthesis;    // text-to-speech engine
+
+        // // â€”â€”â€”â€”â€”â€” Speech Recognition Setup â€”â€”â€”â€”â€”â€”
+        // const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        // const recognition = new SpeechRecognition();
+
+        // // Auto-detect browser locale, fallback to US English
+        // recognition.lang = navigator.language || navigator.userLanguage || 'ms-MY';
+        // recognition.interimResults = false;
+        // recognition.maxAlternatives = 1;
+
+        // let shouldContinueTyping = true;
+
+        // â€”â€”â€”â€”â€”â€” UI Event Listeners â€”â€”â€”â€”â€”â€”
+        // microphoneBtn.addEventListener("click", () => {
+        // recognition.start();
+        // });
+
+        // recognition.addEventListener("result", (event) => {
+        // const speechResult = event.results[0][0].transcript;
+        // document.getElementById("user-input").value = speechResult;
+        // });
+
+        // recognition.addEventListener("end", () => {
+        // const speechResult = document.getElementById("user-input").value;
+        // if (speechResult) {
+        // 	chatForm.dispatchEvent(new Event("submit"));
+        // }
+        // });
+        microphoneBtn.addEventListener("click", () => {
+            // Check microphone permission using Permissions API
+            if (navigator.permissions) {
+                navigator.permissions.query({ name: 'microphone' }).then((result) => {
+                    if (result.state === 'granted') {
+                        recognition.start();
+                    } else if (result.state === 'prompt') {
+                        // Start recognition â€” will trigger browser prompt
+                        recognition.start();
+                    } else if (result.state === 'denied') {
+                        alert("âŒ Microphone access is blocked.\n\nPlease allow access in your browser settings:\nChrome: ðŸ”’ icon > Site settings > Microphone: Allow\nSafari: Settings > Website Settings > Microphone");
+                    }
+                }).catch((error) => {
+                    console.warn("Permissions API not supported or error:", error);
+                    recognition.start(); // Fallback for browsers that don't support Permissions API
+                });
+            } else {
+                // If Permissions API is not available, just try to start
+                recognition.start();
+            }
+        });
+
+        // Handle speech result
+        recognition.addEventListener("result", (event) => {
+            const speechResult = event.results[0][0].transcript;
+            document.getElementById("user-input").value = speechResult;
+            document.getElementById("chat-form").dispatchEvent(new Event("submit"));
+        });
+
+        // Handle errors
+        recognition.addEventListener("error", (event) => {
+            if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+                alert("â— Microphone access denied.\nPlease allow it from your browser settings.");
+            } else {
+                console.error("SpeechRecognition error:", event.error);
+            }
+        });
+
+        // Add a stop TTS function
+        function stopTTS() {
+            document.getElementById("tts-indicator").style.display = "none";
+            if (currentAudioElement) {
+                currentAudioElement.pause();
+                currentAudioElement.currentTime = 0;
+                currentAudioElement = null;
+            }
+            window.speechSynthesis.cancel();
+            shouldContinueTyping = false;
+            showIdleVideo();
+            document.getElementById("user-input").disabled = false;
+        }
+
+        // Command To Action	
+        window.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowDown") {
+                // Stop TTS when Up arrow key is pressed
+                stopTTS();
+            } else if (event.key === "ArrowUp") {
+                // Start ASR when Down arrow key is pressed
+                recognition.start();
+            }
+        });
+
+        recognition.addEventListener("result", (event) => {
+            const speechResult = event.results[0][0].transcript.trim();
+            const lower = speechResult.toLowerCase();
+
+            // If user said â€œstopâ€, interrupt TTS â€¦
+            if (lower === "stop") {
+                stopTTS();
+                return;
             }
 
-            const jsonResponse = await response.json();
-            console.log("Gemini response:", jsonResponse); // ✅ Debug log
-            const textResponse = jsonResponse.candidates?.[0]?.content?.parts?.[0]?.text || "⚠️ No response.";
-            return textResponse;
-        } catch (error) {
-            console.error("Error fetching Gemini response:", error);
-            return "❌ ERROR! Please check Gemini API settings.";
-        }
-    }
-    </script>
+            // Otherwise, feed it into the chat form
+            //   document.getElementById("user-input").value = speechResult;
+            //   document.getElementById("chat-form").dispatchEvent(new Event("submit"));
+        });
 
+        // Bind the stop TTS function to a button
+        const stopTTSBtn = document.getElementById("stop-tts-btn");
+        stopTTSBtn.addEventListener("click", stopTTS);
+
+        // Get current date
+        const currentDate = new Date();
+
+        // Get current date and time
+        const currentTime = new Date();
+
+        // Format date as a string
+        const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+
+        // Format time as a string
+        const formattedTime = `${currentTime.getHours()}:${currentTime.getMinutes()}:${currentTime.getSeconds()}`;
+
+        // Display the date in the console
+        console.log('Current date:', formattedDate);
+        console.log('Current time:', formattedTime);
+
+        const now = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        const formattedDateTime = now.toLocaleString('en-US', options);
+
+        console.log('Current Date/Time:', formattedDateTime);
+
+        let KnowledgeDataset =
+            `${formattedDateTime} \n\n`;
+        // `Today date is ${formattedDate} \n\n` +
+        // `Time now is ${formattedTime} \n\n` ;
+
+        // Display the KnowledgeDataset in the console
+        console.log(KnowledgeDataset);
+
+        const TotalWords = (500 * 25) / 100;
+
+        const FinalWords = 500 - TotalWords;
+
+        let promptLimit = `You are an Digital AI Assistant named Prime. Please provide responses in complete, well-structured sentences. Ensure that each response is clear, informative, and coherent even if you need to exceed maximum ${FinalWords} words.`;
+
+        // let AvaPrompt = `You are Prime the Digital AI Assistant. You are Professional.`;
+
+        let promptEngineering = `You are a streaming avatar from Asrix Prime Berhad, an industry-leading product that specializes in developing Ai based tools, applications and infrastructure with focus on digital business transformation for the small medium enterprise and industry (SME/SMI). Audience will try to have a conversation with you, please try to answer the questions or respond to their comments naturally, and concisely. Please try your best to respond with short answers, and only answer the last question.`;
+
+        let systemPrompt = `Answering regarding customer support question from customers.`;
+
+        let systemInstruction = `You only provide information related to the context prompt. If the information is not available in the context prompt or if uncertain, simply state you don't know.`;
+
+        let pdfLinks = [
+            "https://studio.orient-telecoms.com/publishing/91526-asrix-company-profile.pdf",
+        ];
+
+        let urlLinks = [
+            "https://asrix.com",
+        ];
+
+        let pdfLinksText = pdfLinks.map(link => `PDF Link: ${link}`).join('\n');
+        let urlLinksText = urlLinks.map(link => `URL Link: ${link}`).join('\n');
+
+        async function fetchGPTResponse(prompt) {
+            const headers = {
+                "Content-Type": "application/json"
+            };
+
+            const requestBody = {
+                model: 'gemini-2.5-flash',
+                contents: [{
+                    role: 'user',
+                    parts: [{ text: prompt + systemPrompt + promptLimit + '\n\n' + pdfLinksText + '\n\n' + urlLinksText + '\n\n' }]
+                }],
+                generationConfig: {
+                    temperature: 0.7,
+                    maxOutputTokens: 500,
+                    topP: 0.8,
+                    topK: 40
+                },
+                safetySettings: [
+                    {
+                        category: "HARM_CATEGORY_HARASSMENT",
+                        threshold: "BLOCK_MEDIUM_AND_ABOVE"
+                    },
+                    {
+                        category: "HARM_CATEGORY_HATE_SPEECH",
+                        threshold: "BLOCK_MEDIUM_AND_ABOVE"
+                    }
+                ]
+            };
+
+            try {
+                const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                    method: "POST",
+                    headers: headers,
+                    body: JSON.stringify(requestBody),
+                });
+
+                if (!response.ok) {
+                    const errorResponse = await response.json();
+                    console.error("Gemini API Error:", errorResponse);
+                    throw new Error("Gemini API Error");
+                }
+
+                const jsonResponse = await response.json();
+                const textResponse = jsonResponse.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no response.";
+                return textResponse;
+            } catch (error) {
+                console.error("Error fetching Gemini response:", error);
+                return "ERROR! Please check Gemini API settings.";
+            }
+        }
+
+        async function typeWriter(element, text, delay = 50) {
+            shouldContinueTyping = true; // Reset the flag before starting typing
+            for (let i = 0; i < text.length; i++) {
+                if (!shouldContinueTyping) break; // Stop typing if the flag is set to false
+                element.innerHTML += text[i];
+                await new Promise((resolve) => setTimeout(resolve, delay));
+            }
+        }
+
+        // Add this function to detect the language of the input text
+        async function detectLanguage(text) {
+            const response = await fetch(
+                `https://translation.googleapis.com/language/translate/v2/detect?key=AIzaSyAWD6iE3jsh51wUHbPYplP8mr5K_SO6XFo`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        q: text,
+                    }),
+                }
+            );
+
+            const data = await response.json();
+            return data.data.detections[0][0].language;
+        }
+
+        async function speak(text, element, delay = 50) {
+            // Add these lines to detect the language of the input text
+            const language = await detectLanguage(text);
+            const synth = window.speechSynthesis;
+
+            // Modify this function to select voices based on the detected language
+            function getVoice(voices, language) {
+
+                const MaleVoiceNames = [
+                    // English
+                    "Google US English Male",
+                    "Google UK English Male",
+
+                    // Chinese
+                    "Google æ™®é€šè¯ï¼ˆä¸­å›½å¤§é™†ï¼‰ Male",
+                    "Google åœ‹èªžï¼ˆè‡ºç£ï¼‰ Male",
+                    "Google å»£æ±è©±ï¼ˆé¦™æ¸¯ï¼‰ Male",
+
+                    // Hindi
+                    "Google à¤¹à¤¿à¤¨à¥à¤¦à¥€ Male",
+
+                    // Thai
+                    "Google à¸ à¸²à¸©à¸²à¹„à¸—à¸¢ Male",
+
+                    // Malay
+                    "Google Bahasa Melayu Male",
+
+                    // Vietnamese
+                    "Google Tiáº¿ng Viá»‡t Male",
+
+                    // Tamil
+                    "Google à®¤à®®à®¿à®´à¯ Male",
+
+                    // Bengali
+                    "Google à¦¬à¦¾à¦‚à¦²à¦¾ Male",
+
+                    // Urdu
+                    "Google Ø§Ø±Ø¯Ùˆ Male",
+
+                    // Indonesian
+                    "Google Bahasa Indonesia Male",
+
+                    // Japanese
+                    "Google æ—¥æœ¬èªž Male",
+
+                    // Korean
+                    "Google í•œêµ­ì˜ Male",
+
+                    // Arabic
+                    "Google Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© Male",
+
+                    // Farsi / Persian
+                    "Google ÙØ§Ø±Ø³ÛŒ Male",
+
+                    // Hebrew
+                    "Google ×¢×‘×¨×™×ª Male",
+
+                    // Ukrainian
+                    "Google Ð£ÐºÑ€Ð°Ñ—Ð½ÑÑŒÐºÐ° Male",
+
+                    // Polish
+                    "Google Polski Male",
+
+                    // Swedish
+                    "Google Svenska Male",
+
+                    // Czech
+                    "Google ÄŒeÅ¡tina Male",
+
+                    // Romanian
+                    "Google RomÃ¢nÄƒ Male",
+
+                    // Dutch
+                    "Google Nederlands Male",
+
+                    // Finnish
+                    "Google Suomi Male",
+
+                    // Greek
+                    "Google Î•Î»Î»Î·Î½Î¹ÎºÎ¬ Male",
+
+                    // French
+                    "Google FranÃ§ais Male",
+
+                    // German
+                    "Google Deutsch Male",
+
+                    // Spanish
+                    "Google EspaÃ±ol Male",
+
+                    // Italian
+                    "Google Italiano Male",
+
+                    // Russian
+                    "Google Ð ÑƒÑÑÐºÐ¸Ð¹ Male"
+                ];
+
+                // Find a Male voice for the detected language
+                const MaleVoice = voices.find(
+                    (voice) =>
+                        voice.lang.startsWith(language) &&
+                        MaleVoiceNames.includes(voice.name)
+                );
+
+                // If a Male voice is found, return it; otherwise, return the first voice for the detected language
+                return MaleVoice || voices.find((voice) => voice.lang.startsWith(language)) || voices[0];
+            }
+
+            function splitText(text) {
+                const chunkSize = 1200;
+                const words = text.split(" ");
+                const chunks = [];
+
+                let currentChunk = "";
+
+                words.forEach((word) => {
+                    if (currentChunk.length + word.length + 1 > chunkSize) {
+                        currentChunk = currentChunk.trim() + ".";
+                        chunks.push(currentChunk);
+                        currentChunk = "";
+                    }
+
+                    currentChunk += word + " ";
+                });
+
+                if (currentChunk) {
+                    currentChunk = currentChunk.trim() + ".";
+                    chunks.push(currentChunk);
+                }
+
+                return chunks;
+            }
+
+            const textChunks = splitText(text);
+
+            function loadVoices() {
+                const voices = synth.getVoices();
+                const selectedVoice = getVoice(voices, language);
+
+                let currentChunkIndex = 0;
+
+                async function speakChunk() {
+                    if (currentChunkIndex < textChunks.length) {
+                        const correctedChunk = textChunks[currentChunkIndex]
+                            .replace(/&#x27;/g, "'")
+                            .replace(/&quot;/g, "'")
+                            .replace(/\*smiles\*/g, "")
+                            .replace(/\*smile\*/g, "")
+                            .replace(/\*smiling\*/g, "")
+                            .replace(/\*excited tone\*/g, "")
+                            .replace(/\*nods enthusiastically\*/g, "")
+                            .replace(/\*nods\*/g, "")
+                            .replace(/\*winks\*/g, "")
+                            .replace(/\*chuckles\*/g, "")
+                            .replace(/\*curious\*/g, "")
+                            .replace(/\(smiling\)/g, "")
+                            .replace(/&amp;/g, "&");
+
+                        const apiKey = "5d12cfd99427d32fa2f305d3a0ed96a1"; // Your ElevenLabs API key
+
+                        const voiceId = "IKne3meq5aSn9XLyUdCD";
+                        // Fetch audio from ElevenLabs API
+                        const response = await fetch(
+                            `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?optimize_streaming_latency=0`,
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "xi-api-key": apiKey,
+                                },
+                                body: JSON.stringify({
+                                    text: correctedChunk,
+                                    model_id: "eleven_multilingual_v2",
+                                    voice_settings: {
+                                        stability: 1,
+                                        similarity_boost: 1,
+                                        style: 0.5,
+                                        use_speaker_boost: true,
+                                    },
+                                }),
+                            }
+                        );
+
+                        if (!response.ok) {
+                            console.error("API Error:", response);
+                            return;
+                        }
+
+                        // Fetch the audio blob from the response
+                        const audioBlob = await response.blob();
+                        const audioURL = URL.createObjectURL(audioBlob);
+
+                        // Create a new audio element
+                        currentAudioElement = new Audio(audioURL);
+                        const audioElement = currentAudioElement;
+                        const videoElement = document.getElementById("talkVideo");
+                        videoElement.loop = true; // Enable loop while speaking
+
+                        audioElement.onplay = () => {
+                            document.getElementById("tts-indicator").style.display = "block";
+                            showTalkVideo();
+                            videoElement.play().catch(e => console.error("Video play failed:", e));
+                        };
+
+                        audioElement.onended = () => {
+                            document.getElementById("tts-indicator").style.display = "none";
+                            currentChunkIndex++;
+                            if (currentChunkIndex < textChunks.length) {
+                                speakChunk(); // Continue speaking next chunk
+                            } else {
+                                showIdleVideo(); // Only return to idle when TTS ends
+                                userInputElement.disabled = false;
+                            }
+                        };
+
+                        audioElement.onerror = (error) => {
+                            console.error("Audio playback error:", error);
+                        };
+
+                        audioElement.play().catch(error => {
+                            console.error("Error playing audio:", error);
+                        });
+
+                        // Assuming userInputElement is defined earlier and refers to the input element
+                        const userInputElement = document.getElementById("user-input");
+
+                        audioElement.onended = () => {
+                            document.getElementById("tts-indicator").style.display = "none";
+                            currentChunkIndex++;
+
+                            // Always switch back to idle avatar when audio chunk ends
+                            showIdleVideo();
+
+                            if (currentChunkIndex < textChunks.length) {
+                                // speakChunk(); // Uncomment if you want to auto-continue to the next chunk
+                            } else {
+                                userInputElement.disabled = false;
+                                // userInputElement.focus(); // Optional
+                            }
+                        };
+
+                        await audioElement.play();
+
+                        typeWriter(element, correctedChunk, delay);
+                    } else {
+                        //recognition.start();
+                    }
+                }
+
+                speakChunk();
+                //alert("Voices start!");
+
+            }
+
+            if (synth.getVoices().length !== 0) {
+                loadVoices();
+                //alert("Voices are available!");
+            } else {
+                synth.addEventListener("voiceschanged", loadVoices);
+            }
+        }
+
+        // Function to decode HTML entities
+        function decodeHTMLEntities(input) {
+            const doc = new DOMParser().parseFromString(input, "text/html");
+            return doc.documentElement.textContent;
+        }
+
+        // Modify the JavaScript code to append new messages at the top of the chat box
+        async function appendMessage(text, sender) {
+            const decodedText = decodeHTMLEntities(text);
+            const message = document.createElement("div");
+            const now = new Date();
+            const timestamp = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+            const timeSpan = document.createElement("div");
+            timeSpan.style.fontSize = '10px';
+            timeSpan.style.color = '#888';
+            timeSpan.textContent = timestamp;
+
+            if (sender === "user") {
+                message.className = "user-message"; // Apply the user message class
+            } else if (sender === "chatbot") {
+                message.className = "chatbot-message"; // Apply the chatbot message class
+            }
+
+            const messageText = document.createElement("span");
+            messageText.className = "message-text"; // Apply the common message text class
+
+            if (sender === "chatbot") {
+                await speak(text, messageText);
+            } else {
+                await typeWriter(messageText, text);
+            }
+
+            message.appendChild(messageText);
+            message.appendChild(timeSpan);
+
+            // Prepend the new message to the top of the chat box
+            chatBox.insertBefore(message, chatBox.firstChild);
+
+            // Scroll to the top of the chat box
+            chatBox.scrollTop = 0;
+        }
+
+
+        let isPaused = false;
+        function pauseTTS() {
+            if (currentAudioElement) {
+                currentAudioElement.pause();
+                isPaused = true;
+            }
+        }
+        function resumeTTS() {
+            if (currentAudioElement && isPaused) {
+                currentAudioElement.play();
+                isPaused = false;
+            }
+        }
+    </script>
     <script>
         const idleVideo = document.getElementById("idleVideo");
         const talkVideo = document.getElementById("talkVideo");
@@ -909,7 +1580,7 @@
             idleVideo.play().catch(() => { });
         }
 
-        // 🔁 Optional Auto-Loop Demo: idle <-> talk every 4 seconds
+        // ðŸ” Optional Auto-Loop Demo: idle <-> talk every 4 seconds
         let autoLoop = true; // Set to false if you only want real voice control
         if (autoLoop) {
             let isTalking = false;
