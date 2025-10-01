@@ -385,7 +385,7 @@
         #export-controls {
             display: none !important;
         }
-/* âœ… Mobile adjustments */
+/* ✅ Mobile adjustments */
 @media (max-width: 768px) {
     /* Chat box above menu */
     .chat-box {
@@ -546,25 +546,25 @@
         </div>
     </div>
 
-    <!-- âœ… ADD THIS in <body>, near the top (before container-fluid) -->
+    <!-- ✅ ADD THIS in <body>, near the top (before container-fluid) -->
     <select id="language-selector" class="form-select"
         style="position:fixed;top:50px;left:10px;width:200px;z-index:9999;">
-        <option value="auto">ðŸŒ Auto Detect</option>
-        <option value="en-US">ðŸ‡ºðŸ‡¸ English (US)</option>
-        <option value="ms-MY">ðŸ‡²ðŸ‡¾ Malay</option>
-        <option value="zh-CN">ðŸ‡¨ðŸ‡³ Chinese (Simplified)</option>
-        <option value="hi-IN">ðŸ‡®ðŸ‡³ Hindi</option>
-        <option value="th-TH">ðŸ‡¹ðŸ‡­ Thai</option>
-        <option value="ja-JP">ðŸ‡¯ðŸ‡µ Japanese</option>
-        <option value="ko-KR">ðŸ‡°ðŸ‡· Korean</option>
-        <option value="fr-FR">ðŸ‡«ðŸ‡· French</option>
-        <option value="de-DE">ðŸ‡©ðŸ‡ª German</option>
-        <option value="ru-RU">ðŸ‡·ðŸ‡º Russian</option>
-        <option value="es-ES">ðŸ‡ªðŸ‡¸ Spanish</option>
-        <option value="it-IT">ðŸ‡®ðŸ‡¹ Italian</option>
-        <option value="tr-TR">ðŸ‡¹ðŸ‡· Turkish</option>
-        <option value="ar-SA">ðŸ‡¸ðŸ‡¦ Arabic</option>
-        <option value="fa-IR">ðŸ‡®ðŸ‡· Persian</option>
+        <option value="auto">🌐 Auto Detect</option>
+        <option value="en-US">🇺🇸 English (US)</option>
+        <option value="ms-MY">🇲🇾 Malay</option>
+        <option value="zh-CN">🇨🇳 Chinese (Simplified)</option>
+        <option value="hi-IN">🇮🇳 Hindi</option>
+        <option value="th-TH">🇹🇭 Thai</option>
+        <option value="ja-JP">🇯🇵 Japanese</option>
+        <option value="ko-KR">🇰🇷 Korean</option>
+        <option value="fr-FR">🇫🇷 French</option>
+        <option value="de-DE">🇩🇪 German</option>
+        <option value="ru-RU">🇷🇺 Russian</option>
+        <option value="es-ES">🇪🇸 Spanish</option>
+        <option value="it-IT">🇮🇹 Italian</option>
+        <option value="tr-TR">🇹🇷 Turkish</option>
+        <option value="ar-SA">🇸🇦 Arabic</option>
+        <option value="fa-IR">🇮🇷 Persian</option>
     </select>
 
     <div id="tts-indicator" style="
@@ -770,7 +770,7 @@
                     <div id="export-controls" style="margin-top: 1rem;">
                         <label>From: <input id="start-date" type="datetime-local" /></label>
                         <label>To: <input id="end-date" type="datetime-local" /></label>
-                        <button class="btn btn-warning ms-2" id="export-pdf-btn">ðŸ“„ Export to PDF</button>
+                        <button class="btn btn-warning ms-2" id="export-pdf-btn">📄 Export to PDF</button>
                         <input accept=".json,.csv" class="ms-2" id="import-log" type="file" />
                     </div>
                 </div>
@@ -888,34 +888,34 @@
         }
 
         const greetings = {
-            "en-US": "Hi! My name is", "ms-MY": "Hai! Nama saya", "zh-CN": "ä½ å¥½ï¼æˆ‘çš„åå­—æ˜¯", "hi-IN": "à¤¨à¤®à¤¸à¥à¤¤à¥‡! à¤®à¥‡à¤°à¤¾ à¤¨à¤¾à¤® à¤¹à¥ˆ",
-            "th-TH": "à¸ªà¸§à¸±à¸ªà¸”à¸µ! à¸‰à¸±à¸™à¸Šà¸·à¹ˆà¸­", "ja-JP": "ã“ã‚“ã«ã¡ã¯ï¼ç§ã®åå‰ã¯", "ko-KR": "ì•ˆë…•í•˜ì„¸ìš”! ì œ ì´ë¦„ì€", "fr-FR": "Bonjour! Je m'appelle",
-            "de-DE": "Hallo! Ich heiÃŸe", "es-ES": "Â¡Hola! Me llamo", "it-IT": "Ciao! Mi chiamo", "ru-RU": "ÐŸÑ€Ð¸Ð²ÐµÑ‚! ÐœÐµÐ½Ñ Ð·Ð¾Ð²ÑƒÑ‚",
-            "tr-TR": "Merhaba! Benim adÄ±m", "ar-SA": "Ù…Ø±Ø­Ø¨Ø§Ù‹! Ø§Ø³Ù…ÙŠ", "fa-IR": "Ø³Ù„Ø§Ù…! Ø§Ø³Ù… Ù…Ù†", "pt-BR": "OlÃ¡! Meu nome Ã©", "auto": "Hi! My name is"
+            "en-US": "Hi! My name is", "ms-MY": "Hai! Nama saya", "zh-CN": "你好！我的名字是", "hi-IN": "नमस्ते! मेरा नाम है",
+            "th-TH": "สวัสดี! ฉันชื่อ", "ja-JP": "こんにちは！私の名前は", "ko-KR": "안녕하세요! 제 이름은", "fr-FR": "Bonjour! Je m'appelle",
+            "de-DE": "Hallo! Ich heiße", "es-ES": "¡Hola! Me llamo", "it-IT": "Ciao! Mi chiamo", "ru-RU": "Привет! Меня зовут",
+            "tr-TR": "Merhaba! Benim adım", "ar-SA": "مرحباً! اسمي", "fa-IR": "سلام! اسم من", "pt-BR": "Olá! Meu nome é", "auto": "Hi! My name is"
         };
 
         const modalGreetings = {
-            "en-US": "Welcome! What's your name?", "ms-MY": "Selamat datang! Siapa nama anda?", "zh-CN": "æ¬¢è¿Žï¼ä½ å«ä»€ä¹ˆåå­—ï¼Ÿ",
-            "hi-IN": "à¤¸à¥à¤µà¤¾à¤—à¤¤ à¤¹à¥ˆ! à¤†à¤ªà¤•à¤¾ à¤¨à¤¾à¤® à¤•à¥à¤¯à¤¾ à¤¹à¥ˆ?", "th-TH": "à¸¢à¸´à¸™à¸”à¸µà¸•à¹‰à¸­à¸™à¸£à¸±à¸š! à¸„à¸¸à¸“à¸Šà¸·à¹ˆà¸­à¸­à¸°à¹„à¸£?", "ja-JP": "ã‚ˆã†ã“ãï¼ãŠåå‰ã¯ï¼Ÿ",
-            "ko-KR": "í™˜ì˜í•©ë‹ˆë‹¤! ì´ë¦„ì´ ë­ì˜ˆìš”?", "fr-FR": "Bienvenue ! Quel est votre nom ?", "de-DE": "Willkommen! Wie heiÃŸen Sie?",
-            "es-ES": "Â¡Bienvenido! Â¿CÃ³mo te llamas?", "it-IT": "Benvenuto! Come ti chiami?", "ru-RU": "Ð”Ð¾Ð±Ñ€Ð¾ Ð¿Ð¾Ð¶Ð°Ð»Ð¾Ð²Ð°Ñ‚ÑŒ! ÐšÐ°Ðº Ð²Ð°Ñ Ð·Ð¾Ð²ÑƒÑ‚?",
-            "tr-TR": "HoÅŸ geldiniz! AdÄ±nÄ±z nedir?", "ar-SA": "Ù…Ø±Ø­Ø¨Ù‹Ø§! Ù…Ø§ Ø§Ø³Ù…ÙƒØŸ", "fa-IR": "Ø®ÙˆØ´ Ø¢Ù…Ø¯ÛŒØ¯! Ø§Ø³Ù…Øª Ú†ÛŒÙ‡ØŸ",
-            "pt-BR": "Bem-vindo! Qual Ã© o seu nome?", "auto": "Welcome! What's your name?"
+            "en-US": "Welcome! What's your name?", "ms-MY": "Selamat datang! Siapa nama anda?", "zh-CN": "欢迎！你叫什么名字？",
+            "hi-IN": "स्वागत है! आपका नाम क्या है?", "th-TH": "ยินดีต้อนรับ! คุณชื่ออะไร?", "ja-JP": "ようこそ！お名前は？",
+            "ko-KR": "환영합니다! 이름이 뭐예요?", "fr-FR": "Bienvenue ! Quel est votre nom ?", "de-DE": "Willkommen! Wie heißen Sie?",
+            "es-ES": "¡Bienvenido! ¿Cómo te llamas?", "it-IT": "Benvenuto! Come ti chiami?", "ru-RU": "Добро пожаловать! Как вас зовут?",
+            "tr-TR": "Hoş geldiniz! Adınız nedir?", "ar-SA": "مرحبًا! ما اسمك؟", "fa-IR": "خوش آمدید! اسمت چیه؟",
+            "pt-BR": "Bem-vindo! Qual é o seu nome?", "auto": "Welcome! What's your name?"
         };
 
         const namePlaceholders = {
-            "en-US": "Enter your name", "ms-MY": "Masukkan nama anda", "zh-CN": "è¾“å…¥ä½ çš„åå­—", "hi-IN": "à¤…à¤ªà¤¨à¤¾ à¤¨à¤¾à¤® à¤¦à¤°à¥à¤œ à¤•à¤°à¥‡à¤‚",
-            "th-TH": "à¸à¸£à¸­à¸à¸Šà¸·à¹ˆà¸­à¸‚à¸­à¸‡à¸„à¸¸à¸“", "ja-JP": "ã‚ãªãŸã®åå‰ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„", "ko-KR": "ì´ë¦„ì„ ìž…ë ¥í•˜ì„¸ìš”", "fr-FR": "Entrez votre nom",
+            "en-US": "Enter your name", "ms-MY": "Masukkan nama anda", "zh-CN": "输入你的名字", "hi-IN": "अपना नाम दर्ज करें",
+            "th-TH": "กรอกชื่อของคุณ", "ja-JP": "あなたの名前を入力してください", "ko-KR": "이름을 입력하세요", "fr-FR": "Entrez votre nom",
             "de-DE": "Geben Sie Ihren Namen ein", "es-ES": "Ingresa tu nombre", "it-IT": "Inserisci il tuo nome",
-            "ru-RU": "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð²Ð°ÑˆÐµ Ð¸Ð¼Ñ", "tr-TR": "AdÄ±nÄ±zÄ± girin", "ar-SA": "Ø£Ø¯Ø®Ù„ Ø§Ø³Ù…Ùƒ", "fa-IR": "Ù†Ø§Ù… Ø®ÙˆØ¯ Ø±Ø§ ÙˆØ§Ø±Ø¯ Ú©Ù†ÛŒØ¯",
+            "ru-RU": "Введите ваше имя", "tr-TR": "Adınızı girin", "ar-SA": "أدخل اسمك", "fa-IR": "نام خود را وارد کنید",
             "pt-BR": "Digite seu nome", "auto": "Enter your name"
         };
 
         const messagePlaceholders = {
-            "en-US": "Type your message...", "ms-MY": "Taip mesej anda...", "zh-CN": "è¾“å…¥ä½ çš„æ¶ˆæ¯...", "hi-IN": "à¤…à¤ªà¤¨à¤¾ à¤¸à¤‚à¤¦à¥‡à¤¶ à¤²à¤¿à¤–à¥‡à¤‚...",
-            "th-TH": "à¸žà¸´à¸¡à¸žà¹Œà¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡à¸‚à¸­à¸‡à¸„à¸¸à¸“...", "ja-JP": "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å…¥åŠ›...", "ko-KR": "ë©”ì‹œì§€ë¥¼ ìž…ë ¥í•˜ì„¸ìš”...", "fr-FR": "Tapez votre message...",
+            "en-US": "Type your message...", "ms-MY": "Taip mesej anda...", "zh-CN": "输入你的消息...", "hi-IN": "अपना संदेश लिखें...",
+            "th-TH": "พิมพ์ข้อความของคุณ...", "ja-JP": "メッセージを入力...", "ko-KR": "메시지를 입력하세요...", "fr-FR": "Tapez votre message...",
             "de-DE": "Geben Sie Ihre Nachricht ein...", "es-ES": "Escribe tu mensaje...", "it-IT": "Scrivi il tuo messaggio...",
-            "ru-RU": "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð²Ð°ÑˆÐµ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ...", "tr-TR": "MesajÄ±nÄ±zÄ± yazÄ±n...", "ar-SA": "Ø§ÙƒØªØ¨ Ø±Ø³Ø§Ù„ØªÙƒ...", "fa-IR": "Ù¾ÛŒØ§Ù…Øª Ø±Ø§ Ø¨Ù†ÙˆÛŒØ³...",
+            "ru-RU": "Введите ваше сообщение...", "tr-TR": "Mesajınızı yazın...", "ar-SA": "اكتب رسالتك...", "fa-IR": "پیامت را بنویس...",
             "pt-BR": "Digite sua mensagem...", "auto": "Type your message..."
         };
 
@@ -978,10 +978,10 @@
             });
         });
 
-        // â€”â€”â€”â€”â€”â€”â€”â€”â€” Global Scope â€”â€”â€”â€”â€”â€”â€”â€”â€”
+        // ————————— Global Scope —————————
         // const synth = window.speechSynthesis;    // text-to-speech engine
 
-        // // â€”â€”â€”â€”â€”â€” Speech Recognition Setup â€”â€”â€”â€”â€”â€”
+        // // —————— Speech Recognition Setup ——————
         // const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         // const recognition = new SpeechRecognition();
 
@@ -992,7 +992,7 @@
 
         // let shouldContinueTyping = true;
 
-        // â€”â€”â€”â€”â€”â€” UI Event Listeners â€”â€”â€”â€”â€”â€”
+        // —————— UI Event Listeners ——————
         // microphoneBtn.addEventListener("click", () => {
         // recognition.start();
         // });
@@ -1015,10 +1015,10 @@
                     if (result.state === 'granted') {
                         recognition.start();
                     } else if (result.state === 'prompt') {
-                        // Start recognition â€” will trigger browser prompt
+                        // Start recognition — will trigger browser prompt
                         recognition.start();
                     } else if (result.state === 'denied') {
-                        alert("âŒ Microphone access is blocked.\n\nPlease allow access in your browser settings:\nChrome: ðŸ”’ icon > Site settings > Microphone: Allow\nSafari: Settings > Website Settings > Microphone");
+                        alert("❌ Microphone access is blocked.\n\nPlease allow access in your browser settings:\nChrome: 🔒 icon > Site settings > Microphone: Allow\nSafari: Settings > Website Settings > Microphone");
                     }
                 }).catch((error) => {
                     console.warn("Permissions API not supported or error:", error);
@@ -1040,7 +1040,7 @@
         // Handle errors
         recognition.addEventListener("error", (event) => {
             if (event.error === "not-allowed" || event.error === "service-not-allowed") {
-                alert("â— Microphone access denied.\nPlease allow it from your browser settings.");
+                alert("❗ Microphone access denied.\nPlease allow it from your browser settings.");
             } else {
                 console.error("SpeechRecognition error:", event.error);
             }
@@ -1075,7 +1075,7 @@
             const speechResult = event.results[0][0].transcript.trim();
             const lower = speechResult.toLowerCase();
 
-            // If user said â€œstopâ€, interrupt TTS â€¦
+            // If user said “stop”, interrupt TTS …
             if (lower === "stop") {
                 stopTTS();
                 return;
@@ -1238,51 +1238,51 @@
                     "Google UK English Male",
 
                     // Chinese
-                    "Google æ™®é€šè¯ï¼ˆä¸­å›½å¤§é™†ï¼‰ Male",
-                    "Google åœ‹èªžï¼ˆè‡ºç£ï¼‰ Male",
-                    "Google å»£æ±è©±ï¼ˆé¦™æ¸¯ï¼‰ Male",
+                    "Google 普通话（中国大陆） Male",
+                    "Google 國語（臺灣） Male",
+                    "Google 廣東話（香港） Male",
 
                     // Hindi
-                    "Google à¤¹à¤¿à¤¨à¥à¤¦à¥€ Male",
+                    "Google हिन्दी Male",
 
                     // Thai
-                    "Google à¸ à¸²à¸©à¸²à¹„à¸—à¸¢ Male",
+                    "Google ภาษาไทย Male",
 
                     // Malay
                     "Google Bahasa Melayu Male",
 
                     // Vietnamese
-                    "Google Tiáº¿ng Viá»‡t Male",
+                    "Google Tiếng Việt Male",
 
                     // Tamil
-                    "Google à®¤à®®à®¿à®´à¯ Male",
+                    "Google தமிழ் Male",
 
                     // Bengali
-                    "Google à¦¬à¦¾à¦‚à¦²à¦¾ Male",
+                    "Google বাংলা Male",
 
                     // Urdu
-                    "Google Ø§Ø±Ø¯Ùˆ Male",
+                    "Google اردو Male",
 
                     // Indonesian
                     "Google Bahasa Indonesia Male",
 
                     // Japanese
-                    "Google æ—¥æœ¬èªž Male",
+                    "Google 日本語 Male",
 
                     // Korean
-                    "Google í•œêµ­ì˜ Male",
+                    "Google 한국의 Male",
 
                     // Arabic
-                    "Google Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© Male",
+                    "Google العربية Male",
 
                     // Farsi / Persian
-                    "Google ÙØ§Ø±Ø³ÛŒ Male",
+                    "Google فارسی Male",
 
                     // Hebrew
-                    "Google ×¢×‘×¨×™×ª Male",
+                    "Google עברית Male",
 
                     // Ukrainian
-                    "Google Ð£ÐºÑ€Ð°Ñ—Ð½ÑÑŒÐºÐ° Male",
+                    "Google Українська Male",
 
                     // Polish
                     "Google Polski Male",
@@ -1291,10 +1291,10 @@
                     "Google Svenska Male",
 
                     // Czech
-                    "Google ÄŒeÅ¡tina Male",
+                    "Google Čeština Male",
 
                     // Romanian
-                    "Google RomÃ¢nÄƒ Male",
+                    "Google Română Male",
 
                     // Dutch
                     "Google Nederlands Male",
@@ -1303,22 +1303,22 @@
                     "Google Suomi Male",
 
                     // Greek
-                    "Google Î•Î»Î»Î·Î½Î¹ÎºÎ¬ Male",
+                    "Google Ελληνικά Male",
 
                     // French
-                    "Google FranÃ§ais Male",
+                    "Google Français Male",
 
                     // German
                     "Google Deutsch Male",
 
                     // Spanish
-                    "Google EspaÃ±ol Male",
+                    "Google Español Male",
 
                     // Italian
                     "Google Italiano Male",
 
                     // Russian
-                    "Google Ð ÑƒÑÑÐºÐ¸Ð¹ Male"
+                    "Google Русский Male"
                 ];
 
                 // Find a Male voice for the detected language
@@ -1580,7 +1580,7 @@
             idleVideo.play().catch(() => { });
         }
 
-        // ðŸ” Optional Auto-Loop Demo: idle <-> talk every 4 seconds
+        // 🔁 Optional Auto-Loop Demo: idle <-> talk every 4 seconds
         let autoLoop = true; // Set to false if you only want real voice control
         if (autoLoop) {
             let isTalking = false;
