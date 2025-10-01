@@ -582,6 +582,75 @@ h1.page-header {
             border: none;
         }
     </style>
+	<style>
+  /* Light mode (default) */
+  body {
+    background-color: #ffffff;
+    color: #000000;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  /* Dark mode */
+  body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+
+  /* Navbar dark */
+  .navbar.dark-mode {
+    background-color: #1f1f1f !important;
+    border-color: #333;
+  }
+
+  /* Sidebar dark */
+  .side-menu.dark-mode {
+    background-color: #1f1f1f;
+    border-right: 1px solid #333;
+  }
+  .side-menu.dark-mode .navbar-nav li {
+    border-bottom: 1px solid #333;
+  }
+  .side-menu.dark-mode .navbar-nav li a {
+    color: #ddd;
+  }
+  .side-menu.dark-mode .navbar-nav li a:hover {
+    background-color: #333;
+  }
+
+  /* Panel dark */
+  .panel.dark-mode {
+    background-color: #1e1e1e;
+    border-color: #333;
+  }
+  .panel.dark-mode .panel-heading {
+    background-color: #2a2a2a;
+    color: #fff;
+  }
+  .panel.dark-mode .panel-body {
+    background-color: #1f1f1f;
+    color: #ddd;
+  }
+
+  /* Table dark */
+  table.table-dark {
+    background-color: #1f1f1f;
+    color: #ddd;
+  }
+  table.table-dark th, table.table-dark td {
+    border-color: #333;
+  }
+
+  /* Toggle button */
+  #darkModeToggle {
+    background: none;
+    border: none;
+    font-size: 16px;
+    margin-top: 8px;
+    cursor: pointer;
+    color: inherit;
+  }
+</style>
+
 </head><body>
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
@@ -625,6 +694,10 @@ h1.page-header {
 						Hello Intern RnD 
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
+							<li>
+  <button id="darkModeToggle">🌙 Dark Mode</button>
+</li>
+
 							<li class="dropdown-header">SETTINGS</li>
 							<li class=""><a href="?p=Edit-Profile">Profile</a></li>
 							<li class="divider"></li>
@@ -1002,5 +1075,23 @@ $(document).ready(function () {
     $('div.setup-panel div a.btn-primary').trigger('click');
 });
 </script>
+	<script>
+  document.getElementById("darkModeToggle").addEventListener("click", function () {
+    document.body.classList.toggle("dark-mode");
+    document.querySelector(".navbar").classList.toggle("dark-mode");
+    document.querySelector(".side-menu").classList.toggle("dark-mode");
+    document.querySelectorAll(".panel").forEach(el => el.classList.toggle("dark-mode"));
+    document.querySelectorAll("table").forEach(el => el.classList.toggle("table-dark"));
+
+    // Change button text
+    if (document.body.classList.contains("dark-mode")) {
+      this.textContent = "☀️ Light Mode";
+    } else {
+      this.textContent = "🌙 Dark Mode";
+    }
+  });
+</script>
+
 </body>
 </html>
+
